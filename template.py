@@ -19,6 +19,7 @@ folder_paths = [
     f'src/{project_name}/logging/__init__.py',
     f'src/{project_name}/logging/logger.py',
     'artfacts/',
+    'data/',
     'app.py',
     'setup.py',
     'requirements.txt'
