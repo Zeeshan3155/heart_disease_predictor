@@ -18,6 +18,7 @@ folder_paths = [
     f'src/{project_name}/exception/exception.py',
     f'src/{project_name}/logging/__init__.py',
     f'src/{project_name}/logging/logger.py',
+    'artfacts/',
     'app.py',
     'setup.py',
     'requirements.txt'
