@@ -1,7 +1,7 @@
 import os
 import sys
-from logging.logger import logging
-from exception.exception import CustomException
+from src.logger import logging
+from src.exception import CustomException
 import pickle
 
 def save_obj(obj_path,obj):
