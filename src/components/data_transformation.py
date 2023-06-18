@@ -80,38 +80,39 @@ class DataTransformation:
             raise CustomException(e,sys)
 
     def initiate_data_transformation(self,train_set_path,test_set_path):
-        
-        train_df = pd.read_csv(train_set_path)
-        test_df = pd.read_csv(test_set_path)
+        try:
+            train_df = pd.read_csv(train_set_path)
+            test_df = pd.read_csv(test_set_path)
 
-        target_column = ['output']
+            target_column = ['output']
 
-        logging.info("Starting data transformation")
+            logging.info("Starting data transformation")
 
-        X_train = train_df.drop(columns=target_column)
-        y_train = train_df[target_column]
+            X_train = train_df.drop(columns=target_column)
+            y_train = train_df[target_column]
 
-        X_test = test_df.drop(columns=target_column)
-        y_test = test_df[target_column]
-        
-        sm = SMOTE(sampling_strategy='minority',random_state=7)
-        X_train, y_train = sm.fit_resample(X_train,y_train)
+            X_test = test_df.drop(columns=target_column)
+            y_test = test_df[target_column]
+            
+            sm = SMOTE(sampling_strategy='minority',random_state=7)
+            X_train, y_train = sm.fit_resample(X_train,y_train)
 
-        preprocessor_obj = self.get_data_transformer()
+            preprocessor_obj = self.get_data_transformer()
 
-        processed_input_train_arr = preprocessor_obj.fit_transform(X_train)
-        processed_input_test_arr = preprocessor_obj.transform(X_test)
+            processed_input_train_arr = preprocessor_obj.fit_transform(X_train)
+            processed_input_test_arr = preprocessor_obj.transform(X_test)
 
-        train_arr = np.c_[processed_input_train_arr,np.array(y_train)]
-        test_arr = np.c_[processed_input_test_arr,np.array(y_test)]
+            train_arr = np.c_[processed_input_train_arr,np.array(y_train)]
+            test_arr = np.c_[processed_input_test_arr,np.array(y_test)]
 
-        logging.info("Data transformation completed")
+            logging.info("Data transformation completed")
 
-        save_obj(self.data_transformation_config.preprocessor_path,preprocessor_obj)
+            save_obj(self.data_transformation_config.preprocessor_path,preprocessor_obj)
 
-        return (
-            train_arr,
-            test_arr
-        )
+            return (
+                train_arr,
+                test_arr
+            )
 
-        
+        except Exception as e:
+            raise CustomException(e,sys)
