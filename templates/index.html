@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prediction Page</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    // Function to handle form submission
+    function submitForm() {
+      // Get the values from the input fields
+      var input1 = $("#input1").val();
+      var input2 = $("#input2").val();
+      var input3 = $("#input3").val();
+      var input4 = $("#input4").val();
+      var input5 = $("#input5").val();
+      var input6 = $("#input6").val();
+      var input7 = $("#input7").val();
+      var input8 = $("#input8").val();
+      var input9 = $("#input9").val();
+      var input10 = $("#input10").val();
+      var input11 = $("#input11").val();
+      var input12 = $("#input12").val();
+      var input13 = $("#input13").val();
+      
+      // Perform prediction or any other processing
+      var data = {
+        input1: input1,
+        input2: input2,
+        input3: input3,
+        input4: input4,
+        input5: input5,
+        input6: input6,
+        input7: input7,
+        input8: input8,
+        input9: input9,
+        input10: input10,
+        input11: input11,
+        input12: input12,
+        input13: input13
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/prediction",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: "json",
+        success: function(response) {
+          $("#prediction").val(response.prediction);
+          console.log("Prediction received:", response.prediction);
+        },
+        error: function(xhr, status, error) {
+          console.error("An error occurred:", error);
+        }
+      });
+    
+    }
+  </script>
+</head>
+<body>
+  <h1>Heart attack prediction</h1>
+  <form class="container">
+    <label for="input1" class="form-label">Age:</label>
+    <input type="text" id="input1" name="input1" class="form-input"><br>
+
+    <label for="input2" class="form-label">Sex:</label>
+    <select id="input2" name="input2" class="form-input">
+      <option value="" disabled selected></option>
+      <option value=1>Male</option>
+      <option value=0>Female</option>
+    </select><br>
+
+
+    <label for="input3" class="form-label">Chest pain type:</label>
+    <select id="input3" name="input3" class="form-input">
+      <option value="" disabled selected></option>
+      <option value=0>Typical Angina</option>
+      <option value=1>Atypical Angina</option>
+      <option value=2>Non-anginal Pain</option>
+      <option value=3>Asymptomatic</option>
+    </select><br>
+
+
+    <label for="input4" class="form-label">Resting blood pressure (in mm Hg):</label>
+    <input type="text" id="input4" name="input4" class="form-input"><br>
+    
+    <label for="input5" class="form-label">Cholestoral in mg/dl fetched via BMI sensor:</label>
+    <input type="text" id="input5" name="input5" class="form-input"><br>
+    
+    <label for="input6" class="form-label">fasting blood sugar > 120 mg/dl:</label>
+    <select id="input6" name="input6" class="form-input">
+      <option value="" disabled selected></option>
+      <option value=1>True</option>
+      <option value=0>False</option>
+    </select><br>
+
+    <label for="input7" class="form-label">Resting electrocardiographic results:</label>
+    <select id="input7" name="input7" class="form-input">
+      <option value="" disabled selected></option>
+      <option value=0>Normal</option>
+      <option value=1>ST-T wave normality</option>
+      <option value=2>Left ventricular hypertrophy</option>
+    </select><br>
+
+    <label for="input8" class="form-label">Maximum heart rate achieved:</label>
+    <input type="text" id="input8" name="input8" class="form-input"><br>
+
+    <label for="input9" class="form-label">Exercise induced angina:</label>
+    <select id="input9" name="input9" class="form-input">
+      <option value="" disabled selected></option>
+      <option value=1>Yes</option>
+      <option value=0>No</option>
+    </select><br>
+
+    <label for="input10" class="form-label">Previous peak:</label>
+    <input type="text" id="input10" name="input10" class="form-input"><br>
+
+    <label for="input11" class="form-label">Slope:</label>
+    <input type="text" id="input11" name="input11" class="form-input"><br>
+
+    <label for="input12" class="form-label">Number of major vessels:</label>
+    <select id="input12" name="input12" class="form-input">
+      <option value="" disabled selected></option>
+      <option value=0>0</option>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+      <option value=4>4</option>
+    </select><br>
+
+    <label for="input13" class="form-label">Thalium Stress Test result:</label>
+    <select id="input13" name="input13" class="form-input">
+      <option value="" disabled selected></option>
+      <option value=0>0</option>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+    </select><br>
+    <br>
+    <input type="button" value="Submit" name="submit-button" onclick="submitForm()" class="form-button">
+    <br>
+  </form>
+  <br>
+  <div class="text-field">
+  <textarea id="prediction" rows="4" cols="50" readonly ></textarea>
+  </div>
+</body>
+</html>

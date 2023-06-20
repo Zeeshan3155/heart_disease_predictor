@@ -124,6 +124,7 @@ celerybeat.pid
 .venv
 .logs
 .artifacts
+.data
 .notebook
 env/
 venv/

@@ -11,6 +11,7 @@ class PredictPipeline:
     def predict(self,data):
         
         try:
+            prediction_mapping = {0.0: "Less than 50% diameter narrowing - not a significant heart disease", 1.0: "More than 50% diameter narrowing - a significant heart disease."}
             logging.info("Loading preprocessor model")
             transformer = DataTransformationConfig()
             preprocessor = load_object(transformer.preprocessor_path)
@@ -24,6 +25,7 @@ class PredictPipeline:
             logging.info("Transforming data")
             processed_data = preprocessor.transform(data)
             prediction = model.predict(processed_data)
+            prediction = prediction_mapping[prediction[0]]
             logging.info(f"Prediction complete, prediction is {prediction}")
             return prediction
         
